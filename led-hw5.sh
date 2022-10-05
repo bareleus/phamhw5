@@ -3,6 +3,9 @@
 #  Linux console. Written by Derek Molloy (derekmolloy.ie) for the 
 #  book Exploring BeagleBone.
 
+# led-hw5.sh takes the following arguments: on, off, status, flash, blink.
+# Example invocation: ./led-hw5.sh on, ./ led-hw5.sh blink 5.
+
 LED3_PATH=/sys/class/leds/beaglebone:green:usr3
 
 # Example bash function
@@ -22,14 +25,18 @@ if [ $# -eq 0 ]; then
   exit 2
 fi
 echo "The LED Command that was passed is: $1"
+
+# Turn on the LED
 if [ "$1" == "on" ]; then
   echo "Turning the LED on"
   removeTrigger
   echo "1" >> "$LED3_PATH/brightness"
+# Turn off the LED
 elif [ "$1" == "off" ]; then
   echo "Turning the LED off"
   removeTrigger
   echo "0" >> "$LED3_PATH/brightness"
+# Flash the LED
 elif [ "$1" == "flash" ]; then
   echo "Flashing the LED"
   removeTrigger
